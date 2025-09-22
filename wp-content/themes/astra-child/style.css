@@ -1,0 +1,198 @@
+/*
+Theme Name: Astra Business Child
+Description: A custom business template child theme based on Astra, optimized for small business websites and Hostinger hosting.
+Author: Business Template Creator
+Author URI: https://yourdomain.com
+Template: astra
+Version: 1.0.0
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: astra-business-child
+Tags: business, e-commerce, blog, custom-background, custom-colors, custom-header, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Astra Business Child is a child theme of Astra, copyright Brainstorm Force.
+Astra Business Child is distributed under the terms of the GNU GPL v2 or later.
+*/
+
+/*
+======================================
+CHILD THEME CUSTOM STYLES
+======================================
+
+Add your custom CSS here. These styles will override the parent theme
+and will be preserved during theme updates.
+
+Example customizations for business websites:
+*/
+
+/* Custom Business Brand Colors */
+:root {
+    --business-primary: #2563eb;    /* Professional Blue */
+    --business-secondary: #f59e0b;  /* Accent Orange */
+    --business-dark: #1f2937;       /* Dark Gray */
+    --business-light: #f8fafc;      /* Light Background */
+    --business-success: #10b981;    /* Success Green */
+}
+
+/* Business Header Customizations */
+.site-header {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Business Button Styles */
+.ast-button,
+.button,
+.wp-block-button__link {
+    background-color: var(--business-primary);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.ast-button:hover,
+.button:hover,
+.wp-block-button__link:hover {
+    background-color: var(--business-secondary);
+    transform: translateY(-2px);
+}
+
+/* Business Contact Section Styles */
+.business-contact {
+    background-color: var(--business-light);
+    padding: 60px 0;
+}
+
+.business-cta {
+    background: linear-gradient(135deg, var(--business-primary), var(--business-secondary));
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Professional Typography */
+.business-heading {
+    color: var(--business-dark);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Business Card Styles */
+.business-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.business-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Services Section */
+.business-services {
+    padding: 80px 0;
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--business-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 24px;
+}
+
+/* Footer Business Info */
+.business-footer-info {
+    background-color: var(--business-dark);
+    color: white;
+    padding: 40px 0 20px;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+    .business-cta {
+        padding: 60px 20px;
+    }
+
+    .business-card {
+        margin-bottom: 30px;
+    }
+
+    .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+/* WooCommerce Business Customizations */
+.woocommerce .wc-block-grid__product .wc-block-grid__product-link {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.woocommerce .price {
+    color: var(--business-primary);
+    font-weight: 600;
+}
+
+/* Form Styling for Contact Forms */
+.business-form input[type="text"],
+.business-form input[type="email"],
+.business-form input[type="tel"],
+.business-form textarea {
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 12px 16px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.business-form input:focus,
+.business-form textarea:focus {
+    border-color: var(--business-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/*
+======================================
+CUSTOM UTILITY CLASSES
+======================================
+*/
+
+.text-business-primary { color: var(--business-primary); }
+.bg-business-primary { background-color: var(--business-primary); }
+.text-business-secondary { color: var(--business-secondary); }
+.bg-business-secondary { background-color: var(--business-secondary); }
+
+.business-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.business-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.business-flex {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.business-text-center { text-align: center; }
+.business-mb-4 { margin-bottom: 24px; }
+.business-mt-4 { margin-top: 24px; }
+.business-py-8 { padding: 64px 0; }
