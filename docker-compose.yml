@@ -1,86 +1,42 @@
-
 services:
   # WordPress Service
   wordpress:
     image: wordpress:latest
-    container_name: wp_business_template
+    container_name: wp_simple
     restart: unless-stopped
     ports:
       - "8000:80"
     environment:
-      # Database connection
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress_password
       WORDPRESS_DB_NAME: wordpress_db
-
-      # WordPress configuration
-      WORDPRESS_TABLE_PREFIX: wp_
-      WORDPRESS_DEBUG: 1
-      WORDPRESS_CONFIG_EXTRA: |
-        # Development settings
-        define('WP_DEBUG', true);
-        define('WP_DEBUG_LOG', true);
-        define('WP_DEBUG_DISPLAY', true);
-        define('SCRIPT_DEBUG', true);
-        define('WP_ENVIRONMENT_TYPE', 'development');
-        define('WP_LOCAL_DEV', true);
-
-        # Memory and performance
-        define('WP_MEMORY_LIMIT', '512M');
-        define('WP_POST_REVISIONS', 10);
-        define('AUTOSAVE_INTERVAL', 60);
-
-        # File system
-        define('FS_METHOD', 'direct');
-        define('DISALLOW_FILE_EDIT', false);
-
-        # URLs (will be overridden by wp-config if present)
-        define('WP_HOME', 'http://localhost:8000');
-        define('WP_SITEURL', 'http://localhost:8000');
-
     volumes:
-      # Mount the entire project directory
       - .:/var/www/html
-      # Separate uploads volume for persistence
-      - wp_uploads:/var/www/html/wp-content/uploads
-      # Custom php.ini for development
-      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     networks:
       - wp_network
 
   # MySQL Database Service
   db:
     image: mysql:8.0
-    container_name: wp_business_db
+    container_name: wp_simple_db
     restart: unless-stopped
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: wordpress_db
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress_password
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
     volumes:
-      # Persist database data
       - db_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
-      timeout: 20s
-      retries: 10
-      start_period: 80s
-      interval: 10s
     networks:
       - wp_network
 
   # phpMyAdmin for database management
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: wp_business_phpmyadmin
+    container_name: wp_simple_phpmyadmin
     restart: unless-stopped
     ports:
       - "8080:80"
@@ -88,65 +44,13 @@ services:
       PMA_HOST: db
       PMA_USER: wordpress
       PMA_PASSWORD: wordpress_password
-      MYSQL_ROOT_PASSWORD: root_password
-      PMA_ARBITRARY: 1
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     networks:
       - wp_network
 
-  # MailHog for email testing
-  mailhog:
-    image: mailhog/mailhog:latest
-    container_name: wp_business_mailhog
-    restart: unless-stopped
-    ports:
-      - "1025:1025"  # SMTP port
-      - "8025:8025"  # Web UI port
-    networks:
-      - wp_network
-
-  # Redis for caching (optional)
-  redis:
-    image: redis:7-alpine
-    container_name: wp_business_redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
-    networks:
-      - wp_network
-
-  # Node.js for asset building (optional)
-  node:
-    image: node:18-alpine
-    container_name: wp_business_node
-    working_dir: /app
-    volumes:
-      - ./wp-content/themes/astra-child:/app
-    command: sh -c "npm install && npm run watch"
-    networks:
-      - wp_network
-    profiles:
-      - dev-tools
-
-# Volumes for data persistence
 volumes:
   db_data:
-    driver: local
-  wp_uploads:
-    driver: local
-  redis_data:
-    driver: local
 
-# Network for container communication
 networks:
   wp_network:
-    driver: bridge
-
-# Development profiles
-# Use: docker-compose --profile dev-tools up
-# This allows optional services for development
