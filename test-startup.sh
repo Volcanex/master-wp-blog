@@ -3,7 +3,7 @@
 # WordPress Business Template - Test Startup Script
 # ================================================
 # This script tests the Docker setup with the master template
-# It will use .env.example if no .env exists and start all services
+# It will use .env.local.example if no .env.local exists and start all services
 
 set -e  # Exit on any error
 
@@ -95,13 +95,13 @@ check_prerequisites() {
 setup_environment() {
     print_status "Setting up environment..."
 
-    # Use .env.example if .env doesn't exist
-    if [ ! -f ".env" ]; then
-        print_status "No .env file found. Using .env.example for testing..."
-        cp .env.example .env
-        print_success "Created .env from .env.example"
+    # Use .env.local.example if .env.local doesn't exist
+    if [ ! -f ".env.local" ]; then
+        print_status "No .env.local file found. Using .env.local.example for testing..."
+        cp .env.local.example .env.local
+        print_success "Created .env.local from .env.local.example"
     else
-        print_status ".env file already exists. Using existing configuration."
+        print_status ".env.local file already exists. Using existing configuration."
     fi
 
     # Check if docker-compose.yml exists
@@ -129,6 +129,7 @@ setup_wp_config() {
         print_status "wp-config.php already exists. Using existing configuration."
     fi
 }
+
 
 # Function to stop any existing containers
 cleanup_existing() {
@@ -212,6 +213,7 @@ wait_for_database() {
     done
 }
 
+
 # Function to check service health
 check_service_health() {
     print_status "Checking service health..."
@@ -291,9 +293,6 @@ display_access_info() {
     echo "   Username: wordpress"
     echo "   Password: wordpress_password"
     echo ""
-    echo "📧 MailHog (Email Testing):"
-    echo "   http://localhost:8025"
-    echo ""
     echo "🔍 Database Details:"
     echo "   Host: localhost:3306"
     echo "   Database: wordpress_db"
@@ -305,7 +304,7 @@ display_access_info() {
     echo "=========================================="
     echo ""
     echo "1. Visit http://localhost:8000 to complete WordPress setup"
-    echo "2. Activate the 'Astra Business Child' theme"
+    echo "2. Activate the 'Astra Business Child' theme (if available)"
     echo "3. Configure business information in Appearance → Customize"
     echo "4. Create pages using the provided templates"
     echo ""
@@ -377,6 +376,7 @@ main() {
 
     check_service_health
     echo ""
+
 
     install_node_dependencies
     echo ""
