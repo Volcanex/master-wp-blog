@@ -148,6 +148,13 @@ cleanup_existing() {
 start_docker_services() {
     print_status "Starting Docker services..."
 
+    # Fix MySQL data permissions if needed (for cloned repos)
+    if [ -d "mysql-data" ] && [ "$(stat -c %U mysql-data 2>/dev/null)" != "999" ]; then
+        print_status "Fixing MySQL data permissions after clone..."
+        docker run --rm -v "$(pwd)/mysql-data":/data alpine chown -R 999:999 /data
+        print_success "MySQL permissions fixed!"
+    fi
+
     # Pull latest images
     print_status "Pulling Docker images..."
     $DOCKER_COMPOSE_CMD pull
