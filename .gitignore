@@ -159,6 +159,7 @@ docker-compose.local.yml
 mysql-data/#innodb_temp/
 mysql-data/#innodb_redo/
 mysql-data/#ib_16384_*.dblwr
+mysql-data/ib_buffer_pool
 mysql-data/ibtmp1
 mysql-data/binlog.*
 mysql-data/mysql-bin.*
