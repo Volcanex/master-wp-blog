@@ -163,10 +163,10 @@ mysql-data/ib_buffer_pool
 mysql-data/ibtmp1
 mysql-data/binlog.*
 mysql-data/mysql-bin.*
-mysql-data/ibdata1
-mysql-data/mysql.ibd
 mysql-data/undo_*
 mysql-data/*.pid
 mysql-data/*.lock
+mysql-data/*.pem
+mysql-data/auto.cnf
 
 # END OF FILE
