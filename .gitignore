@@ -166,7 +166,5 @@ mysql-data/mysql-bin.*
 mysql-data/undo_*
 mysql-data/*.pid
 mysql-data/*.lock
-mysql-data/*.pem
-mysql-data/auto.cnf
 
 # END OF FILE
