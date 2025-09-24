@@ -157,7 +157,7 @@ docker-compose.local.yml
 # MySQL Temporary Files (keep core database but ignore temp/cache files)
 # =====================================================================
 mysql-data/#innodb_temp/
-mysql-data/#innodb_redo/
+mysql-data/#innodb_redo/*_tmp
 mysql-data/#ib_16384_*.dblwr
 mysql-data/ib_buffer_pool
 mysql-data/ibtmp1
