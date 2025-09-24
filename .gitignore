@@ -154,4 +154,14 @@ docker-compose.override.yml
 .env.local
 docker-compose.local.yml
 
+# MySQL Temporary Files (keep core database but ignore temp/cache files)
+# =====================================================================
+mysql-data/#innodb_temp/
+mysql-data/#innodb_redo/#ib_redo*_tmp
+mysql-data/ibtmp1
+mysql-data/binlog.*
+mysql-data/mysql-bin.*
+mysql-data/*.pid
+mysql-data/*.lock
+
 # END OF FILE
