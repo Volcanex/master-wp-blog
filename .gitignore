@@ -1,129 +1,53 @@
-# WordPress Business Template - Git Ignore File
-# ==============================================
-# This .gitignore is optimized for WordPress development
-# focusing on custom themes and business template management
+# WordPress MCP Development Project - Git Ignore
+# ==================================================
+# Clean, focused .gitignore for a cloneable WordPress MCP project
+# This tracks everything needed for the project to work out of the box
 
-# WordPress Core Files
-# ====================
-# Ignore WordPress core files - these should be managed via deployment
-/index.php
-/license.txt
-/readme.html
-/wp-*.php
-/xmlrpc.php
-
-# WordPress Core Directories
-/wp-admin/
-/wp-includes/
-
-# WordPress Configuration
-# ======================
-# Never commit sensitive configuration files
-wp-config.php
-wp-config-sample.php
-
-# Database and Environment
-# ========================
-
-*.sql
-*.sql.gz
-*.sql.zip
-
-# WordPress Content - Selective Tracking
-# ======================================
-
-# Uploads Directory (user uploaded files)
+# WordPress Generated/Cache Files (bloat)
+# =======================================
+*.log
+/wp-content/debug.log
+/wp-content/cache/
 /wp-content/uploads/
 /wp-content/upgrade/
 /wp-content/backup*/
 /wp-content/backups/
 /wp-content/blogs.dir/
-
-# Cache Directories
-/wp-content/cache/
 /wp-content/advanced-cache.php
 /wp-content/wp-cache-config.php
 
-# WordPress Plugins (unless custom developed)
-# ===========================================
-# Track only specific custom plugins, ignore all others
+# Plugin Generated Cache/Temp Files
+# =================================
+/wp-content/litespeed/
+.litespeed_conf
+/wp-content/w3tc-config/
+/wp-content/cache/wp-rocket/
+/wp-content/wp-rocket-config/
+/wp-content/uploads/wc-logs/
+/wp-content/uploads/wpcf7_uploads/
+/wp-content/uploads/wpseo_xml_sitemap-*
+sitemap*.xml*
 
-
-# Exception: Track custom business plugins (uncomment if you have them)
-# !/wp-content/plugins/custom-business-plugin/
-# !/wp-content/plugins/your-custom-plugin/
-
-# Themes - Selective Tracking
-# ===========================
-# Ignore all themes except our custom ones
-/wp-content/themes/*
-
-# Track our custom business theme
-!/wp-content/themes/astra-child/
-
-# But ignore compiled/built assets in the child theme
-/wp-content/themes/astra-child/assets/dist/
-/wp-content/themes/astra-child/assets/css/compiled/
-
-# Track parent theme only if customized (usually not recommended)
-# !/wp-content/themes/astra/
-
-# Exception: Track any other custom themes
-# !/wp-content/themes/your-other-custom-theme/
-
-# WordPress Auto-generated Files
-# ==============================
-/wp-content/debug.log
-/wp-content/error_log
-sitemap.xml
-sitemap.xml.gz
-*.log
-
-# WordPress Update Files
+# Development Tool Files
 # ======================
-*.old
-*.orig
-*.tmp
-*.temp
-wp-config-sample.php
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+/vendor/
+composer.lock
+.sass-cache/
+*.css.map
+*.js.map
+/dist/
+/build/
 
-# Operating System Files
-# ======================
-
-# macOS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Windows
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-*.stackdump
-[Dd]esktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Linux
-*~
-.fuse_hidden*
-.directory
-.Trash-*
-.nfs*
-
-# Development Tools
+# IDE/Editor Files
 # ================
-
-# IDE and Editor Files
 .vscode/
 .idea/
 *.swp
@@ -135,53 +59,52 @@ $RECYCLE.BIN/
 *.sublime-*
 *.code-workspace
 
-# Node.js (if using build tools)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.npm
-.yarn-integrity
-package-lock.json
-yarn.lock
-
-# Build Tools and Preprocessors
-# =============================
-/dist/
-/build/
-.sass-cache/
-*.css.map
-*.js.map
-.grunt/
-.gulpfile.js
-webpack.config.js
-mix-manifest.json
-
-# Composer (PHP Package Manager)
-# ==============================
-/vendor/
-composer.lock
-
-# Security and Backup Files
-# =========================
-.htpasswd
-.htaccess.backup
-*.backup
-*.bak
-*.backupdb
-secret.txt
-private.txt
+# OS Generated Files
+# ==================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
 
 # Temporary Files
-# ==============
+# ===============
 *.tmp
 *.temp
 temp/
 tmp/
-.temporary
+*.backup
+*.bak
+*.old
+*.orig
 
-# Archive Files
-# =============
+# Security/Sensitive Files
+# ========================
+.htpasswd
+.htaccess.backup
+secret.txt
+private.txt
+
+# Database Files
+# ==============
+*.sql
+*.sql.gz
+*.sql.zip
+
+# Archive Files (but keep deployment archives if needed)
+# ======================================================
 *.zip
 *.tar
 *.tar.gz
@@ -190,19 +113,6 @@ tmp/
 *.dmg
 *.iso
 
-# Exception: Keep deployment archives if needed
-# !release.zip
-# !deployment-package.tar.gz
-
-# Log Files
-# =========
-*.log
-logs/
-error_log
-access_log
-debug.log
-wp-content/debug.log
-
 # Testing Files
 # =============
 phpunit.xml
@@ -210,163 +120,38 @@ phpunit.xml.dist
 tests/
 .phpunit.result.cache
 
-# Hosting and Deployment Files
-# ============================
-
-# cPanel Files
+# Hosting/Deployment Temp Files
+# ==============================
 .cpanel/
 .htaccess.cpanel
 .ftpconfig
-cpanel.config
-
-# Hostinger Specific
-.hostinger/
-hostinger-cache/
-
-# FTP Credentials
-.ftpconfig
 .ftppass
 .lftp/
-
-# Deployment Scripts (comment out if you want to track them)
-deploy.sh
-deploy.bat
-deployment/
-
-# CDN and Optimization Files
-# ==========================
+.hostinger/
+hostinger-cache/
 .well-known/
 robots.txt.backup
-sitemap_index.xml
 
-# Plugin Specific Files
-# =====================
-
-# LiteSpeed Cache
-/wp-content/litespeed/
-.litespeed_conf
-
-# W3 Total Cache
-/wp-content/w3tc-config/
-/wp-content/cache/
-
-# WP Rocket
-/wp-content/cache/wp-rocket/
-/wp-content/wp-rocket-config/
-
-# Yoast SEO
-sitemap_index.xml
-/wp-content/uploads/wpseo_xml_sitemap-*
-
-# WooCommerce
-/wp-content/uploads/wc-logs/
-
-# Contact Form 7
-/wp-content/uploads/wpcf7_uploads/
-
-# Custom Business Template Files
-# ==============================
-
-# Keep these files tracked:
-# !/wp-content/themes/astra-child/
-# !HOSTINGER-DEPLOYMENT-GUIDE.md
-# !QUICK-SETUP-GUIDE.md
-# !README.md
-
-# Ignore compiled/generated assets in theme (uncomment if applicable)
-# /wp-content/themes/astra-child/assets/css/compiled/
-# /wp-content/themes/astra-child/assets/js/minified/
-
-# Documentation and Project Files
-# ===============================
-
-# Keep project documentation
-!README.md
-!LICENSE
-!CHANGELOG.md
-!CONTRIBUTING.md
-!docs/
-!.github/
-
-# Ignore local documentation builds
+# Documentation Build Files
+# =========================
 _site/
 .jekyll-metadata
 .jekyll-cache/
 
 # Version Control
-# ==============
-
-# Git
-.git/
-.gitmodules
-
-# SVN
+# ===============
 .svn/
-
-# Mercurial
 .hg/
 .hgignore
+.gitmodules
 
-# Development Configuration
-# =========================
-
-# Local development configuration
-local-config.php
-local-db.php
-wp-local-config.php
-
-# Docker
+# Docker Override Files (keep base docker-compose.yml)
+# ====================================================
 docker-compose.override.yml
-.docker/
 
-# Vagrant
-.vagrant/
-Vagrantfile.local
-
-# Local Development Tools
-# =======================
-
-# MAMP/XAMPP/WAMP
-mysql.txt
-php_errorlog
-error.log
-
-# Laravel Mix (if used for assets)
-/public/hot
-/public/storage
-/public/mix-manifest.json
-
-# Webpack
-webpack-stats.json
-
-# Live Reload
-.livereload
-
-# Custom Ignored Patterns
-# =======================
-
-# Add your custom ignore patterns here
-# Example: ignore specific configuration files
-# config/production.php
-# assets/custom-config.json
-
-# Temporary ignore during development (remove before production)
-# TODO.txt
-# NOTES.md
-# development-notes/
+# Local Development Config (but keep examples)
+# ============================================
+.env.local
+docker-compose.local.yml
 
 # END OF FILE
-# ===========
-
-# Usage Notes:
-# - This .gitignore tracks only custom theme files and essential configurations
-# - WordPress core should be managed through deployment, not version control
-# - Sensitive files like wp-config.php are excluded for security
-# - Add exceptions (using !) for any additional custom files you need to track
-# - Review and customize based on your specific project needs
-
-# For Hostinger Deployment:
-# - Use deployment scripts or manual FTP for WordPress core files
-# - Track only your custom business theme and configurations
-# - Database should be managed separately (exports/imports)
-# - Use environment variables for sensitive configuration
