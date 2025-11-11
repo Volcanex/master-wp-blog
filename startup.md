@@ -206,6 +206,28 @@ This is expected - the endpoint requires authentication. Make sure you've:
 2. Created the mcpuser account
 3. Added the server to Claude Code with correct credentials
 
+### MCP Returns 404 "rest_no_route" Error
+
+**Symptoms**: The MCP endpoint returns `{"code":"rest_no_route","message":"No route was found matching the URL and request method"}`
+
+**Root Cause**: The WordPress MCP plugin requires two things to register REST routes:
+1. The `wordpress_mcp_settings['enabled']` option must be set to `true`
+2. The `mcp-basic-auth-fix.php` plugin must be activated for Application Password authentication
+
+**Fix**:
+```bash
+# Set the correct settings option
+docker-compose exec -T wordpress php -r "require_once 'wp-config.php'; update_option('wordpress_mcp_settings', array('enabled' => true)); echo 'Fixed settings\n';"
+
+# Activate the auth fix plugin
+docker-compose exec -T wordpress php -r "require_once 'wp-config.php'; activate_plugin('mcp-basic-auth-fix.php'); echo 'Activated auth plugin\n';"
+
+# Restart WordPress to clear singleton cache
+docker-compose restart wordpress
+```
+
+**Note**: The `setup-mcp-complete.php` script has been updated to include these fixes automatically.
+
 ### Check MCP Status
 
 ```bash

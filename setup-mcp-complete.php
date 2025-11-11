@@ -17,6 +17,19 @@ if (!is_plugin_active($plugin_file)) {
     echo "✓ WordPress MCP plugin already active\n";
 }
 
+// Activate the MCP Basic Auth Fix plugin (required for Application Password authentication)
+$auth_plugin_file = 'mcp-basic-auth-fix.php';
+if (!is_plugin_active($auth_plugin_file)) {
+    $result = activate_plugin($auth_plugin_file);
+    if (is_wp_error($result)) {
+        echo "✗ Failed to activate MCP Basic Auth Fix plugin: " . $result->get_error_message() . "\n";
+    } else {
+        echo "✓ Activated MCP Basic Auth Fix plugin\n";
+    }
+} else {
+    echo "✓ MCP Basic Auth Fix plugin already active\n";
+}
+
 // Create or update mcpuser
 $username = 'mcpuser';
 $password = '1qp6lufizIWFiLKuv6aPPWMy';
@@ -66,6 +79,11 @@ if ($user && !is_wp_error($user)) {
 // Enable main MCP functionality
 update_option('wpmcp_enable_mcp', true);
 echo "✓ Enabled MCP functionality\n";
+
+// CRITICAL FIX: The plugin checks wordpress_mcp_settings['enabled'], not wpmcp_enable_mcp
+// Without this, REST routes won't be registered and MCP will return 404 errors
+update_option('wordpress_mcp_settings', array('enabled' => true));
+echo "✓ Set wordpress_mcp_settings (required for REST route registration)\n";
 
 // Enable all tool categories
 $tools = [
